@@ -40,17 +40,15 @@
 // Configuration
 var markers = [];
 var map;
-var trainFeed = 'https://engbld.dot.nc.net/EAD/RailTrak/api';
-//var trainFeed = 'https://raw.githubusercontent.com/PatD/RailTracks/master/localTrains.js';
+// var trainFeed = 'https://engbld.dot.nc.net/EAD/RailTrak/api';
+var trainFeed = 'https://raw.githubusercontent.com/PatD/RailTracks/master/localTrains.js';
 
 
 var raleighLocation = { lat: 35.7806, lng: -80.5 };
 var mapDiv = document.getElementById('map');
 
-
-// Associated Data
 var trackLayer = 'https://www.ncdot.gov/_xml/Rail_AmtrakLines.xml';
-var stationLayer = 'https://www.ncdot.gov/_xml/rail_station_mobile.xml';
+
 
 var trainIcon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAlCAYAAAAjt+tHAAAEmElEQVRYhbWXXWwUVRTHfzM7LMu2LqZQbKFKa4gxqS39iqRiHwxbKSIJ1UhSY6uJMTHasqYQIlCtYkgJhAdqKCFi0w+JIQtNlArYXcS4kSbaL6s8GDU0UCHUdNM07WZotjM+dGad2e52Z3U9yc2dvffk/P73zL135wiqqgJQWVkpASJg13qJ1FoYUIA5QPH5fGEAQVVVHW4HHFqzawLEFMEVTcAcIGttzufzhQW3263DnYBL6x38PxmQgRAwrfVz+iodGnyNPyD1pxhsMndFuFx7VICwMfVOf0DqF3NzEZxOBIcjpWBVllFDIfyBsX53RbgA7TUYN54DiAtX799n/t49SzBbVhaC3W4ai4qp7zNRYuFd6y0mPDw+DopCWWEeP146tCS8tOo9hn4ZA5sNad26eCIiTH2jxd3t81NToCjcGfqY7DUPmuYqa47gWL6Mix17ImODVz7i5u2/eLS8EWV6GtHlihdaXBKsmzo9zQeNLyyCA/gDN+j1jywaz3s4k71vPocyNZUovLVz3txYHVvceDfqeHfMuWNNNVZCJ3/R3L4T5GSHj03PN0fGNu88xKmuq9ydSLziaLN82Xje76a1vW/hhyCAdoUDXB/4jetDf/DWgQ4A3n17By37d1mKazkDre19C2AAVSXduTwy53TYQVEi4o6cvGg1rPUM7Nqxicc3ZLNzaxnFT6w3zc3+/ikAgz/fpOfSALf+nEy9gHOn6hP6lBbkUVqQZxkOFl+BkFMbaZ3eQFy/Tm/A5JsyAfpxmxhto9c/THZxvWnH352YIru4nl7/MBOjbUsez2hL6i83M+MBvKd389XVEdaWNDAx2gbA2pIGejv3sH1LUTLhkhcg5NRSlP8Iw18fpueMh8ee3gtAzxkP27cUUbz1ICM3bllePfyLi2hD7kMAVFeVUZS/nqL89VRXlZnmkjFLGXjxjRNc+MSzaGXXvAdMv72nd0eet71yzJKAhBkQV6+m5/IAh1u/sBQQoPn4Ba58O4qYmZnQN2EGRKcT1eWi6eh5mo6etyxCXLkSccWK/y4AQJAkVOCZZ5/km/YGlj11kK7ml0w+dR96Gf9yHzX7urjW9wPYbJaEJhSgzM6iBIO8WltJR0td5IJ5+fXji3yziupRx7t5bX8Xnd0+EATEtDRLApR4DmJaGjXbSuhoqcNW6AGIe8yEnFpshR7mR08QVuHcd78uuTZdQNjQUGXZ9F2ozM5y9jMfn18eQgkGI6C4UYNBbBvfQZmcRFy1ypQBVZb1xwhT4p9ySQZQQ6EFiCZCTEuLBEmUTqNF++qf5ZrJGlORDPCQuyJc7g+MxSxMxNxcxIwMS3AlGEQZG4s5pxUmIQx1gaL9mNYcCjCXZiKAPzD2PZBQhA53V4Q360NaH12ayYBipTiNfMP7A9LgUpkwwEsx7634xWmC8lzvjeXbcCwRBnixMcVRAmKX50uZJswBpGvN6Q9IPxlFGOAbNfiM1mQdFM8SCogjIl3PBGBc+QxJwC0LiCHCpYkYBPR3PsPC5rIMT0pAlAin1vQSeI6F1IeSgSctwCBC35T6UdWP2FwycIC/Aah588EhX2TDAAAAAElFTkSuQmCC'
 
@@ -85,13 +83,13 @@ var initTrainMap = function() {
 
 
 
-// Shows Transit Data from Google Maps
+    
     var transitLayer = new google.maps.TransitLayer();
     transitLayer.setMap(map);
     
 
 
-// Shows Train Tracks
+// map.data.loadGeoJason(); 
     var kmlLayer = new google.maps.KmlLayer({
         preserveViewport: true,
         suppressInfoWindows: true,
@@ -99,13 +97,7 @@ var initTrainMap = function() {
         map: map
     });
     
-// Shows Train Stations
-    var kmlLayer = new google.maps.KmlLayer({
-        preserveViewport: true,
-        suppressInfoWindows: false,
-        url: stationLayer,
-        map: map
-    });
+
 
 
 
@@ -149,10 +141,9 @@ var updateMap = function() {
 
 	// Counts number of trains
     var numberOfTrains = trainInfo.length;
-    
     for (var i = 0; i < numberOfTrains; i++) {
         if (trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
-            
+            // console.log(this);
             var currentTrainPosition = {
                 lat: trainInfo[i].Latitude,
                 lng: trainInfo[i].Longitude
@@ -172,17 +163,13 @@ var updateMap = function() {
                 ID: trainInfo[i].ID,
                 title: trainInfo[i].DeviceName,
                 infoWindowHTML: 
-                    '<div id="content">' +
-                    '<p><strong>' + trainInfo[i].DeviceUUID + ' ' + trainInfo[i].DeviceName + '</strong></p>' +
-                    '<p><i>' + trainInfo[i].FromStation + ' > ' + trainInfo[i].ToStation + '</i></p>' +
-                    '<p>Next Station: ' + trainInfo[i].NextStation + ', running ' + trainInfo[i].OnTimePerformance + '</p>' +
-                    '<p>' + trainInfo[i].Speed + ' <small>MPH</small></p>' +
+                    '<div id="content"><div id="thisTrainInfo"></div>' +
+                    '<p><strong>Train:</strong> ' + trainInfo[i].DeviceUUID + ' ' + trainInfo[i].DeviceName + '</p>' +
+                    '<p>Traveling at ' + trainInfo[i].Speed + ' MPH</p>' +
                     '<span>' +
                     //moment(trainInfo[i].RecordedTime, "hh:mm")+
                     thisTrainTime[0] + 
                     '</span></div>'
-
-
             });
 
 
@@ -231,18 +218,7 @@ var clearMarkers = function() {
 
 
 <style>
-  /*  #map{width:100%;height:400px;} */
-
- 
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    
+    #map{width:100%;height:400px;}
     </style>
 
 <div id="map" ></div>

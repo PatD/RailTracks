@@ -1,4 +1,4 @@
-var trainFeed = [{
+[{
     "ID": 6475,
     "DeviceUUID": "Northeast Regional",
     "DeviceName": "78",
