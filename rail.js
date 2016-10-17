@@ -18,6 +18,9 @@
 // var trackLayerGeo = 'Rail_AmtrakLines.json'
 // var trackLayer = 'https://www.ncdot.gov/_xml/Rail_AmtrakLines.xml';
 // var stationLayer = 'https://www.ncdot.gov/_xml/rail_station_mobile.xml';
+// Tracks https://en.wikipedia.org/wiki/Piedmont_(train)
+// Export KmlLayer http://sharemap.org/public/Amtrak_Piedmont#!kmlexport
+// Geojson editor http://geojson.io/#map=6/33.541/-78.223
 
 
 // Shows geo tracks
@@ -385,10 +388,4 @@ var updateMap = function() {
 */ 
 
 };   // updateMap
-
-
-
-
-
-
 
