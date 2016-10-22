@@ -1,5 +1,18 @@
 /* Punchlist
 
+   Train flyout:
+    
+    Number and name
+    Current Speed
+    Direction
+    Late, ontime, statu
+    Station leaving
+    Station heading to
+    Estimated arrival to next station time
+    Status as of current time
+    
+
+
     Stations icon  
     Station hover state
 
@@ -65,10 +78,11 @@ var markers = [];
 var trainMap;
 
 var map;
-var trainFeed = 'https://engbld.dot.nc.net/EAD/RailTrak/api';
-var trainFeed = 'localTrains.js'
+// var trainFeed = 'https://engbld.dot.nc.net/EAD/RailTrak/api';
+var trainFeed = 'localTrains.js';
 var raleighLocation = { lat: 35.5, lng: -79 };
 var mapDiv = document.getElementById('map');
+
 
 // var trainStationIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/rail.png';
 var trainStationIcon = 'http://digitalstyle.nc.gov/img/icons/svg/location-city.svg';
@@ -121,11 +135,10 @@ var initTrainMap = function() {
 
 
 
+// Shows Transit layer from Google Maps
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(trainMap);
 
-// Shows Transit Data from Google Maps
-    /* var transitLayer = new google.maps.TransitLayer();
-    transitLayer.setMap(map);
-*/
     
 // Loads json array track data
     trainMap.data.addGeoJson(trackData);
@@ -154,9 +167,9 @@ var initTrainMap = function() {
 
 */
 
-       // Station Infowindow
-        var stationInfoWindow = new google.maps.InfoWindow();
-
+   // Station Infowindow
+    var stationInfoWindow = new google.maps.InfoWindow();
+//    var trainInfoWindow = new google.maps.InfoWindow();
 
  // InfoWindow for stations
     trainMap.data.addListener('mouseover', function(event) {
@@ -232,14 +245,63 @@ var updateMap = function() {
 			// Sets a new marker
             var marker = new google.maps.Marker({
       
+              // Marker always above station/track
                 zIndex: google.maps.Marker.MAX_ZINDEX + 1,
                 position: currentTrainPosition,
                 map: trainMap,
                 icon: trainIcon,
-
                 ID: trainInfo[i].ID,
                 title: trainInfo[i].DeviceName,
+                
+                
+  /* available 
+  
+    "ID": 11119,
+    "DeviceUUID": "Piedmont",
+    "DeviceName": "74",
+    "Latitude": 35.66695,
+    "Longitude": -80.466042,
+    "Speed": 1.6,
+    "Course": 315.0,
+    "RecordedTime": "2016-09-26T12:53:00",
+    "Timestamp": "AAAAAAAAOzA=",
+    "OnTimePerformance": "1 min late",
+    "NextStation": "HPT",
+    "FromStation": "CLT",
+    "ToStation": "RGH"
+    
+    */
+  
+  /* need to show 
+  
+  
+  
+    Number and name   <div>
+    Current Speed
+    Direction
+    Late, ontime, statu
+    Station leaving
+    Station heading to
+    Estimated arrival to next station time
+    Status as of current time
+    
+    */
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+              // Click window
                 infoWindowHTML: 
+                
                     '<div id="content">' +
                     '<p><strong>' + trainInfo[i].DeviceUUID + ' ' + trainInfo[i].DeviceName + '</strong></p>' +
                     '<p><i>' + trainInfo[i].FromStation + ' > ' + trainInfo[i].ToStation + '</i></p>' +
@@ -248,7 +310,11 @@ var updateMap = function() {
                     '<span>' +
                     //moment(trainInfo[i].RecordedTime, "hh:mm")+
                     thisTrainTime[0] + 
-                    '</span></div>'
+                    '</span></div>',
+                    
+              // Smaller hover window     
+                hoverWindowHTML:
+                '<p>'+ trainInfo[i].DeviceName+ ' | '+ trainInfo[i].DeviceUUID + '</p>'
 
 
             });
@@ -256,11 +322,25 @@ var updateMap = function() {
             marker['infowindow'] = new google.maps.InfoWindow({
                 content: this.infoWindow
             });
+            
 
             marker.addListener('click', function() {
                 infowindow.setContent(this.infoWindowHTML);
                 infowindow.open(map, this);
             });
+            
+        // Smaller hover window
+            marker.addListener('mouseover', function() {
+                infowindow.setContent(this.hoverWindowHTML);
+                infowindow.open(trainMap, this);
+            });
+            
+        // Smaller hover window
+            marker.addListener('mouseout', function() {
+                infowindow.close(trainMap, this.hoverWindowHTML);
+            });
+
+
 
             markers.push(marker);
         }
