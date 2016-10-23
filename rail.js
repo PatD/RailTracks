@@ -276,14 +276,15 @@ var updateMap = function() {
   
   
   
-    Number and name   <div>
-    Current Speed
-    Direction
-    Late, ontime, statu
-    Station leaving
-    Station heading to
-    Estimated arrival to next station time
-    Status as of current time
+    'Number and name   <div class="infoWindowNumber">' + trainInfo[i].DeviceName + '</div> | <div class="infoWindowName">' + trainInfo[i].DeviceUUID + '</div>' +
+    'current time      <div class="infoWindowTime">' + trainInfo[i].RecordedTime + '</div>' +
+    'Current Speed     <div class="infoWindowSpeed">' + trainInfo[i].Speed + '<small>MPH</small></div>' +
+    'Direction         <div class="infoWindowDirection">' + trainInfo[i].Course + '</div>' +
+    'Late, ontime,     <div class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</div>' +
+    'Station leaving   <div class="infoWindowFromStation">' + trainInfo[i].FromStation + '</div>' +
+    'Station next      <div class="infoWindowNextStation">' + trainInfo[i].NextStation + '</div>' +
+    'Station  to       <div class="infoWindowToStation">' + trainInfo[i].ToStation + '</div>"' +
+
     
     */
                 
@@ -301,7 +302,7 @@ var updateMap = function() {
                 
               // Click window
                 infoWindowHTML: 
-                
+                    /*
                     '<div id="content">' +
                     '<p><strong>' + trainInfo[i].DeviceUUID + ' ' + trainInfo[i].DeviceName + '</strong></p>' +
                     '<p><i>' + trainInfo[i].FromStation + ' > ' + trainInfo[i].ToStation + '</i></p>' +
@@ -311,11 +312,23 @@ var updateMap = function() {
                     //moment(trainInfo[i].RecordedTime, "hh:mm")+
                     thisTrainTime[0] + 
                     '</span></div>',
+                    */
+                    '<div class="infoWindowContent" style="min-width:350px;">' +
+                      'Number and name   <div class="infoWindowNumber">' + trainInfo[i].DeviceName + '</div> | <div class="infoWindowName">' + trainInfo[i].DeviceUUID + '</div>' +
+                      'current time      <div class="infoWindowTime">' + trainInfo[i].RecordedTime + '</div>' +
+                      'Current Speed     <div class="infoWindowSpeed">' + trainInfo[i].Speed + '<small>MPH</small></div>' +
+                      'Direction         <div class="infoWindowDirection">' + trainInfo[i].Course + '</div>' +
+                      'Late, ontime,     <div class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</div>' +
+                      'Station leaving   <div class="infoWindowFromStation">' + trainInfo[i].FromStation + '</div>' +
+                      'Station next      <div class="infoWindowNextStation">' + trainInfo[i].NextStation + '</div>' +
+                      'Station  to       <div class="infoWindowToStation">' + trainInfo[i].ToStation + '</div>' +
+                    '</div>'
                     
+         /*           
               // Smaller hover window     
                 hoverWindowHTML:
                 '<p>'+ trainInfo[i].DeviceName+ ' | '+ trainInfo[i].DeviceUUID + '</p>'
-
+          */
 
             });
         
@@ -328,7 +341,7 @@ var updateMap = function() {
                 infowindow.setContent(this.infoWindowHTML);
                 infowindow.open(map, this);
             });
-            
+        /*
         // Smaller hover window
             marker.addListener('mouseover', function() {
                 infowindow.setContent(this.hoverWindowHTML);
@@ -339,7 +352,7 @@ var updateMap = function() {
             marker.addListener('mouseout', function() {
                 infowindow.close(trainMap, this.hoverWindowHTML);
             });
-
+*/
 
 
             markers.push(marker);
