@@ -1,16 +1,9 @@
 /* Punchlist
 
-   Train flyout:
-    
-    Number and name
-    Current Speed
-    Direction
-    Late, ontime, statu
-    Station leaving
-    Station heading to
-    Estimated arrival to next station time
-    Status as of current time
-    
+    Handling sleeping cars (<DeviceUUID>Corridor</DeviceUUID>)
+    Show direciton 0-255
+    convert time
+        
 
 
     Stations icon  
@@ -66,7 +59,17 @@
 
 
 */
+/*  map.data.addGeoJson(stationData);
+    var featureStyle = {
+        strokeColor: '#778899',
+        strokeWeight: 3,
+        clickable: true,
+        icon: {url: "https://maps.gstatic.com/mapfiles/ms2/micons/rail.png" }
 
+    };
+
+    map.data.setStyle(featureStyle);
+    */
 
 
 
@@ -78,8 +81,8 @@ var markers = [];
 var trainMap;
 
 var map;
-// var trainFeed = 'https://engbld.dot.nc.net/EAD/RailTrak/api';
-var trainFeed = 'localTrains.js';
+var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
+// var trainFeed = 'localTrains.js';
 var raleighLocation = { lat: 35.5, lng: -79 };
 var mapDiv = document.getElementById('map');
 
@@ -153,20 +156,6 @@ var initTrainMap = function() {
     trainMap.data.setStyle(trackStyle);
 
 
-// Loads GeoJSON stations
-   /*  map.data.addGeoJson(stationData);
-    var featureStyle = {
-        strokeColor: '#778899',
-        strokeWeight: 3,
-        clickable: true,
-        icon: {url: "https://maps.gstatic.com/mapfiles/ms2/micons/rail.png" }
-
-    };
-
-    map.data.setStyle(featureStyle);
-
-*/
-
    // Station Infowindow
     var stationInfoWindow = new google.maps.InfoWindow();
 //    var trainInfoWindow = new google.maps.InfoWindow();
@@ -224,25 +213,26 @@ var updateMap = function() {
 
 	// Counts number of trains
     var numberOfTrains = trainInfo.length;
-   // console.log(numberOfTrains);
     
-    
+
+    // Loop through trains, apply to Google Map  
     for (var i = 0; i < numberOfTrains; i++) {
+
+        // Must have a lat and a long, or nothing will be shown
         if (trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
             
-           //console.log(trainInfo[i].DeviceUUID);
-            
+        // Locate our train for Marker
             var currentTrainPosition = {
                 lat: trainInfo[i].Latitude,
                 lng: trainInfo[i].Longitude
             };
 
+       // Convert datetime to local time
+            var convertedTrainDateTime = moment(trainInfo[i].RecordedTime).format('LT');
 
-            var thisTrainTime = trainInfo[i].RecordedTime.split('T');
-            thisTrainTime = thisTrainTime[1].split('.');
+ 
 
-
-			// Sets a new marker
+        // Sets a new marker
             var marker = new google.maps.Marker({
       
               // Marker always above station/track
@@ -271,30 +261,6 @@ var updateMap = function() {
     "ToStation": "RGH"
     
     */
-  
-  /* need to show 
-  
-  
-  
-    'Number and name   <div class="infoWindowNumber">' + trainInfo[i].DeviceName + '</div> | <div class="infoWindowName">' + trainInfo[i].DeviceUUID + '</div>' +
-    'current time      <div class="infoWindowTime">' + trainInfo[i].RecordedTime + '</div>' +
-    'Current Speed     <div class="infoWindowSpeed">' + trainInfo[i].Speed + '<small>MPH</small></div>' +
-    'Direction         <div class="infoWindowDirection">' + trainInfo[i].Course + '</div>' +
-    'Late, ontime,     <div class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</div>' +
-    'Station leaving   <div class="infoWindowFromStation">' + trainInfo[i].FromStation + '</div>' +
-    'Station next      <div class="infoWindowNextStation">' + trainInfo[i].NextStation + '</div>' +
-    'Station  to       <div class="infoWindowToStation">' + trainInfo[i].ToStation + '</div>"' +
-
-    
-    */
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 
                 
@@ -302,17 +268,7 @@ var updateMap = function() {
                 
               // Click window
                 infoWindowHTML: 
-                    /*
-                    '<div id="content">' +
-                    '<p><strong>' + trainInfo[i].DeviceUUID + ' ' + trainInfo[i].DeviceName + '</strong></p>' +
-                    '<p><i>' + trainInfo[i].FromStation + ' > ' + trainInfo[i].ToStation + '</i></p>' +
-                    '<p>Next Station: ' + trainInfo[i].NextStation + ', running ' + trainInfo[i].OnTimePerformance + '</p>' +
-                    '<p>' + trainInfo[i].Speed + ' <small>MPH</small></p>' +
-                    '<span>' +
-                    //moment(trainInfo[i].RecordedTime, "hh:mm")+
-                    thisTrainTime[0] + 
-                    '</span></div>',
-                    */
+
                     '<div class="infoWindowContent" style="width:280px">' +
                       '<div class="block-group">' +
                         '<div class="b1 block"><strong class="infoWindowNumber">' + trainInfo[i].DeviceName + ' | <span class="infoWindowName">' + trainInfo[i].DeviceUUID + '</span></strong></div>' +
@@ -329,7 +285,7 @@ var updateMap = function() {
                       '<div class="block-group>' +
                       '</div>' +
                       'Late, ontime,     <div class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</div>' +
-                      '<br/><div class="block-group">Status as of: ' + trainInfo[i].RecordedTime + '</div>' +
+                      '<br/><div class="block-group">Status as of: ' + convertedTrainDateTime + '</div>' +
                     '</div>'
                     
          /*           
