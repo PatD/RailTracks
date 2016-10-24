@@ -313,15 +313,23 @@ var updateMap = function() {
                     thisTrainTime[0] + 
                     '</span></div>',
                     */
-                    '<div class="infoWindowContent" style="min-width:350px;">' +
-                      'Number and name   <div class="infoWindowNumber">' + trainInfo[i].DeviceName + '</div> | <div class="infoWindowName">' + trainInfo[i].DeviceUUID + '</div>' +
-                      'current time      <div class="infoWindowTime">' + trainInfo[i].RecordedTime + '</div>' +
-                      'Current Speed     <div class="infoWindowSpeed">' + trainInfo[i].Speed + '<small>MPH</small></div>' +
-                      'Direction         <div class="infoWindowDirection">' + trainInfo[i].Course + '</div>' +
+                    '<div class="infoWindowContent" style="width:280px">' +
+                      '<div class="block-group">' +
+                        '<div class="b1 block"><strong class="infoWindowNumber">' + trainInfo[i].DeviceName + ' | <span class="infoWindowName">' + trainInfo[i].DeviceUUID + '</span></strong></div>' +
+                        '<div class="b2 block infoWindowSpeed"><strong>' + trainInfo[i].Speed + '<small>MPH</small></strong></div>' +
+                        '<div class="b2 block infoWindowDirection">' + trainInfo[i].Course + '</div>' +
+                      '</div><hr />' +
+                      
+                      '<div class="block-group">' +    
+                        '<div class="b4 block">Traveling from: <strong class="infoWindowFromStation">' + trainInfo[i].FromStation + ' &#10148; </strong> ' +
+                        '<strong class="infoWindowToStation">' + trainInfo[i].ToStation + '</strong></div>' +
+                        '<div class="b5 block">Next station: <strong class="infoWindowNextStation">' + trainInfo[i].NextStation + '</strong></div>' +
+                      '</div>' +
+                      
+                      '<div class="block-group>' +
+                      '</div>' +
                       'Late, ontime,     <div class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</div>' +
-                      'Station leaving   <div class="infoWindowFromStation">' + trainInfo[i].FromStation + '</div>' +
-                      'Station next      <div class="infoWindowNextStation">' + trainInfo[i].NextStation + '</div>' +
-                      'Station  to       <div class="infoWindowToStation">' + trainInfo[i].ToStation + '</div>' +
+                      '<br/><div class="block-group">Status as of: ' + trainInfo[i].RecordedTime + '</div>' +
                     '</div>'
                     
          /*           
