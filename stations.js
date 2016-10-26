@@ -1,0 +1,41 @@
+var stationData = {
+    
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "name": "Burlington", "title": "Burlington Station", "street": 101.0, "phone": "336-570-7043", "hours": "Passenger waiting room is open daily, 7:00am-8:00pm. Station attendant is on duty one hour before and stays until one-half hour after all train arrivals and departures.", "parking": "Ample free short- and long-term parking available.", "stationcode": "BNC", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -79.4355, 36.0944 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Cary", "title": "Cary Station", "street": 211.0, "phone": null, "hours": "Passenger Waiting Area will be closed beginning October 27 through late summer 2011. Passengers should wait for trains under the overhang on the east side of the station building. Porta John facilities are provided. No red reservation phone is available.", "parking": "Limited free short- and long-term parking available.", "stationcode": "CYN", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -78.7814, 35.7879 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Charlotte", "title": "Charlotte Station", "street": 1914.0, "phone": "704-376-4416", "hours": "24 hours-a-day", "parking": "Limited free short- and long-term parking.", "stationcode": "CLT", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -80.833, 35.2344 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Durham", "title": "Durham Station", "street": 601.0, "phone": "919-956-7932", "hours": "Open daily, 6:30am to 9:00pm.", "parking": "Limited free short- and long-term parking.", "stationcode": "DNC", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -78.90633741, 35.99825111 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Fayetteville", "title": "Fayetteville Station", "street": 472.0, "phone": "910-483-2658", "hours": "Open daily, 10:00am to 5:45pm, 10:00pm to 5:45am", "parking": "Limited free short- and long-term parking.", "stationcode": "FAY", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -78.8845, 35.0549 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Gastonia", "title": "Gastonia Station", "street": 350.0, "phone": null, "hours": "Station opens one hour before train arrival time and closes station one half hour after train departure. Station is unattended. Flag stop.", "parking": "Limited free short- and long-term parking.", "stationcode": "GAS", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "name": "Greensboro", "title": "Greensboro Station", "street": 236.0, "phone": "336-272-6755", "hours": "24 hours-a-day", "parking": "Free limited short- and long-term parking. Long-term parking permits available at ticket window. See agent. Allow for extra time.", "stationcode": "GRO", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -79.7884, 36.0699 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Hamlet", "title": "Hamlet Station", "street": 2.0, "phone": null, "hours": "Station opens one hour before and stays open until one half hour after all train arrivals and departures. Station is unattended.", "parking": "Limited free short- and long-term parking.", "stationcode": "HAM", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -79.6878, 34.8778 ] } }
+,
+{ "type": "Feature", "properties": { "name": "High Point", "title": "High Point Station", "street": 100.0, "phone": "336-884-0878", "hours": "Passenger waiting room is open daily, midnight-4:00am, 7:30am-3:00pm, 5:00-7:30pm. Station attendant is on duty one hour before and stays until one-half hour after all train arrivals and departures.", "parking": "Limited free short- and long-term and handicapped parking is available at the station. Other customers should park in the Plaza Parking Garage accessible via West Commerce Ave. or West High Ave. Parking fees apply.", "stationcode": "HPT", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -80.0056, 35.9574 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Kannapolis", "title": "Kannapolis Station", "street": 201.0, "phone": "704-932-1591", "hours": "Passenger waiting roomis open daily, 6:30-10:00am, 12:00pm-3:00pm, 5:00-8:30pm Station attendant is on duty one hour before and stays until one-half hour after all train arrivals and departures.", "parking": "Limited free short- and long-term parking.", "stationcode": "KAN", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -80.624977, 35.496326 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Raleigh", "title": "Raleigh Station", "street": 320.0, "phone": "919-833-7594", "hours": "Open daily, 6:00am-10:30pm", "parking": "Limited free short- and long-term parking. Overflow parking is available on Cabarrus Street. See agent. Allow for extra time.", "stationcode": "RGH", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -78.644, 35.7746 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Rocky Mount", "title": "Rocky Mount Station", "street": 100.0, "phone": "252-446-3646", "hours": "24 hours-a-day", "parking": "Limited free short- and long-term parking.", "stationcode": "RMT", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -77.7981, 35.9383 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Salisbury", "title": "Salisbury Station", "street": 215.0, "phone": "704-639-7728", "hours": "Passenger waiting room is open daily, 12:30-3:15am, 7:00-10:00am, 12:15-3:00pm, 5:00-8:00pm. Station attendant is on duty one hour before and stays until one-half hour after all train arrivals and departures.", "parking": "Limited free short- and long-term parking.", "stationcode": "SAL", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -80.4669, 35.667 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Selma", "title": "Selma Station", "street": 500.0, "phone": "919-965-6971", "hours": "Passenger waiting room is open daily, 10:30am-4:30pm. Station attendant is on duty one hour before and stays until one-half hour after all train arrivals and departures.", "parking": "Ample free parking for short-term and long-term parking available at the station and on adjoining Railroad Street.", "stationcode": "SSM", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -78.2813, 35.5329 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Southern Pines", "title": "Southern Pines Station", "street": 235.0, "phone": null, "hours": "Station opens one hour before and stays open until one half hour after all train arrivals and departures. Station is unattended.", "parking": "Limited free short- and long-term parking.", "stationcode": "SOP", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -79.3905, 35.1751 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Wilson", "title": "Wilson Station", "street": 401.0, "phone": "252-246-1060", "hours": "Open daily, 9:00am-5:00pm", "parking": "Limited short- and long-term parking. Some overflow parking is available on Willard Street just south of the station. See agent. Allow extra time.", "stationcode": "WLN", "icon": "\/_graphics\/site_graphics\/rail_stationmap_icon.png" }, "geometry": { "type": "Point", "coordinates": [ -77.9081, 35.7228 ] } }
+
+]
+
+    
+};

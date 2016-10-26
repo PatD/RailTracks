@@ -2,7 +2,6 @@
 
     Handling sleeping cars (<DeviceUUID>Corridor</DeviceUUID>)
     Show direciton 0-255
-    convert time
         
 
 
@@ -81,8 +80,8 @@ var markers = [];
 var trainMap;
 
 var map;
-var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
-// var trainFeed = 'localTrains.js';
+// var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
+var trainFeed = 'localTrains.js';
 var raleighLocation = { lat: 35.5, lng: -79 };
 var mapDiv = document.getElementById('map');
 
@@ -142,10 +141,57 @@ var initTrainMap = function() {
     var transitLayer = new google.maps.TransitLayer();
     transitLayer.setMap(trainMap);
 
+
+
+  
+
+// Loads Train Stations from tracks-and-station.js
+var loadStations = function(){
+  
+  var stationInfoWindow = new google.maps.InfoWindow();
+  
+  for (var i = 0; i < stationData.features.length; i++) {
     
-// Loads json array track data
-    trainMap.data.addGeoJson(trackData);
+    if (stationData.features[i].geometry !== null ){
+        var coords = stationData.features[i].geometry.coordinates;
+        var stationTitle = stationData.features[i].properties.title;
+        console.log(stationTitle);
+        var latLng = new google.maps.LatLng(coords[1],coords[0]);
+        var marker = new google.maps.Marker({
+            content: stationTitle,
+            position: latLng,
+            map: trainMap
+        });
+    }; // If statement
     
+  
+  // Hover for station
+   marker.addListener('mouseover', function() {
+        stationInfoWindow.setContent(this.content);
+        stationInfoWindow.open(trainMap, this);
+    });
+    
+// Smaller hover window
+    marker.addListener('mouseout', function() {
+        stationInfoWindow.close(trainMap, this);
+    });
+    
+    
+    
+  }; // For loop
+};  // loadStations
+
+
+
+
+
+
+
+
+
+
+
+/*
     var trackStyle = {
         strokeColor: '#778899',
         strokeWeight: 4,
@@ -154,43 +200,23 @@ var initTrainMap = function() {
     };
 
     trainMap.data.setStyle(trackStyle);
+*/
 
-
-   // Station Infowindow
-    var stationInfoWindow = new google.maps.InfoWindow();
-//    var trainInfoWindow = new google.maps.InfoWindow();
-
- // InfoWindow for stations
-    trainMap.data.addListener('mouseover', function(event) {
-    
-        //console.log(stationData);
-
-        var stationLink = event.feature.getProperty("stationcode");
-        var stationName = event.feature.getProperty("name");
-
-        
-        stationInfoWindow.setContent(stationName);
-        stationInfoWindow.setPosition(event.feature.getGeometry().get());
-        stationInfoWindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
-        stationInfoWindow.open(trainMap);
-    });  
-
-
-
- trainMap.data.addListener('mouseout', function(event) {
-     stationInfoWindow.close(trainMap);
- });
-
-
+  
 
 
 
 
 // Gets feed data
+  loadStations();
     getTrainData();
 
 
 }; //initTrainMap
+
+
+
+
 
 
 
@@ -283,10 +309,8 @@ var updateMap = function() {
                       '</div>' +
                       
                       '<div class="block-group>' +
-                      '</div>' +
-                      'Late, ontime,     <div class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</div>' +
-                      '<br/><div class="block-group">Status as of: ' + convertedTrainDateTime + '</div>' +
-                    '</div>'
+                      '<br/><div class="block-group"><br/><span class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</span> | Status as of: ' + convertedTrainDateTime + '</div>' +
+                    '</div></div>'
                     
          /*           
               // Smaller hover window     
