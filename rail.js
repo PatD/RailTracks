@@ -80,8 +80,8 @@ var markers = [];
 var trainMap;
 
 var map;
-// var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
-var trainFeed = 'localTrains.js';
+var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
+// var trainFeed = 'localTrains.js';
 var raleighLocation = { lat: 35.5, lng: -79 };
 var mapDiv = document.getElementById('map');
 
@@ -118,7 +118,7 @@ var clearMarkers = function() {
 
 var initTrainMap = function() {
 
-    // Builds Map
+// Builds Map
     trainMap = new google.maps.Map(mapDiv, {
         center: raleighLocation,
         zoom: 8,
@@ -177,7 +177,6 @@ var loadStations = function(){
     });
     
     
-    
   }; // For loop
 };  // loadStations
 
@@ -186,21 +185,19 @@ var loadStations = function(){
 
 
 
+// Loads tracks
+trainMap.data.addGeoJson(trackData);
 
 
+var trackStyle = {
+    strokeColor: '#778899',
+    strokeWeight: 4,
+    clickable: true,
+    icon: {url: trainStationIcon }
+};
 
+trainMap.data.setStyle(trackStyle);
 
-
-/*
-    var trackStyle = {
-        strokeColor: '#778899',
-        strokeWeight: 4,
-        clickable: true,
-        icon: {url: trainStationIcon }
-    };
-
-    trainMap.data.setStyle(trackStyle);
-*/
 
   
 
@@ -208,7 +205,7 @@ var loadStations = function(){
 
 
 // Gets feed data
-  loadStations();
+    loadStations();
     getTrainData();
 
 
@@ -226,7 +223,6 @@ var loadStations = function(){
 // Function to update map
 var updateMap = function() { 
 
-    
 
     rawInput = this.responseText
     var trainInfo = JSON.parse(rawInput);
@@ -238,11 +234,11 @@ var updateMap = function() {
 
 
 	// Counts number of trains
-    var numberOfTrains = trainInfo.length;
+    // var numberOfTrains = trainInfo.length;
     
 
     // Loop through trains, apply to Google Map  
-    for (var i = 0; i < numberOfTrains; i++) {
+    for (var i = 0; i < trainInfo.length; i++) {
 
         // Must have a lat and a long, or nothing will be shown
         if (trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
@@ -257,7 +253,7 @@ var updateMap = function() {
             var convertedTrainDateTime = moment(trainInfo[i].RecordedTime).format('LT');
 
  
-
+// https://www.npmjs.com/package/fontawesome-markers
         // Sets a new marker
             var marker = new google.maps.Marker({
       
@@ -309,7 +305,7 @@ var updateMap = function() {
                       '</div>' +
                       
                       '<div class="block-group>' +
-                      '<br/><div class="block-group"><br/><span class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</span> | Status as of: ' + convertedTrainDateTime + '</div>' +
+                      '<br/><div class="block-group"><br/><strong class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</strong> | Status as of: ' + convertedTrainDateTime + '</div>' +
                     '</div></div>'
                     
          /*           
