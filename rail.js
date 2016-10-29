@@ -20,6 +20,9 @@
 
 
 // Associated Data
+
+// CSS Grid: http://arnaudleray.github.io/pocketgrid/docs/
+
 // var trackLayerGeo = 'Rail_AmtrakLines.json'
 // var trackLayer = 'https://www.ncdot.gov/_xml/Rail_AmtrakLines.xml';
 // var stationLayer = 'https://www.ncdot.gov/_xml/rail_station_mobile.xml';
@@ -80,16 +83,18 @@ var markers = [];
 var trainMap;
 
 var map;
-var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
-// var trainFeed = 'localTrains.js';
+// var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
+var trainFeed = 'localTrains.js';
 var raleighLocation = { lat: 35.5, lng: -79 };
 var mapDiv = document.getElementById('map');
 
 
 // var trainStationIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/rail.png';
-var trainStationIcon = 'http://digitalstyle.nc.gov/img/icons/svg/location-city.svg';
-
+// var trainStationIcon = 'http://digitalstyle.nc.gov/img/icons/svg/location-city.svg';
+var trainStationIcon = 'http://digitalstyle.nc.gov/img/icons/svg/beenhere.svg';
 var trainIcon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAlCAYAAAAjt+tHAAAEmElEQVRYhbWXXWwUVRTHfzM7LMu2LqZQbKFKa4gxqS39iqRiHwxbKSIJ1UhSY6uJMTHasqYQIlCtYkgJhAdqKCFi0w+JIQtNlArYXcS4kSbaL6s8GDU0UCHUdNM07WZotjM+dGad2e52Z3U9yc2dvffk/P73zL135wiqqgJQWVkpASJg13qJ1FoYUIA5QPH5fGEAQVVVHW4HHFqzawLEFMEVTcAcIGttzufzhQW3263DnYBL6x38PxmQgRAwrfVz+iodGnyNPyD1pxhsMndFuFx7VICwMfVOf0DqF3NzEZxOBIcjpWBVllFDIfyBsX53RbgA7TUYN54DiAtX799n/t49SzBbVhaC3W4ai4qp7zNRYuFd6y0mPDw+DopCWWEeP146tCS8tOo9hn4ZA5sNad26eCIiTH2jxd3t81NToCjcGfqY7DUPmuYqa47gWL6Mix17ImODVz7i5u2/eLS8EWV6GtHlihdaXBKsmzo9zQeNLyyCA/gDN+j1jywaz3s4k71vPocyNZUovLVz3txYHVvceDfqeHfMuWNNNVZCJ3/R3L4T5GSHj03PN0fGNu88xKmuq9ydSLziaLN82Xje76a1vW/hhyCAdoUDXB/4jetDf/DWgQ4A3n17By37d1mKazkDre19C2AAVSXduTwy53TYQVEi4o6cvGg1rPUM7Nqxicc3ZLNzaxnFT6w3zc3+/ikAgz/fpOfSALf+nEy9gHOn6hP6lBbkUVqQZxkOFl+BkFMbaZ3eQFy/Tm/A5JsyAfpxmxhto9c/THZxvWnH352YIru4nl7/MBOjbUsez2hL6i83M+MBvKd389XVEdaWNDAx2gbA2pIGejv3sH1LUTLhkhcg5NRSlP8Iw18fpueMh8ee3gtAzxkP27cUUbz1ICM3bllePfyLi2hD7kMAVFeVUZS/nqL89VRXlZnmkjFLGXjxjRNc+MSzaGXXvAdMv72nd0eet71yzJKAhBkQV6+m5/IAh1u/sBQQoPn4Ba58O4qYmZnQN2EGRKcT1eWi6eh5mo6etyxCXLkSccWK/y4AQJAkVOCZZ5/km/YGlj11kK7ml0w+dR96Gf9yHzX7urjW9wPYbJaEJhSgzM6iBIO8WltJR0td5IJ5+fXji3yziupRx7t5bX8Xnd0+EATEtDRLApR4DmJaGjXbSuhoqcNW6AGIe8yEnFpshR7mR08QVuHcd78uuTZdQNjQUGXZ9F2ozM5y9jMfn18eQgkGI6C4UYNBbBvfQZmcRFy1ypQBVZb1xwhT4p9ySQZQQ6EFiCZCTEuLBEmUTqNF++qf5ZrJGlORDPCQuyJc7g+MxSxMxNxcxIwMS3AlGEQZG4s5pxUmIQx1gaL9mNYcCjCXZiKAPzD2PZBQhA53V4Q360NaH12ayYBipTiNfMP7A9LgUpkwwEsx7634xWmC8lzvjeXbcCwRBnixMcVRAmKX50uZJswBpGvN6Q9IPxlFGOAbNfiM1mQdFM8SCogjIl3PBGBc+QxJwC0LiCHCpYkYBPR3PsPC5rIMT0pAlAin1vQSeI6F1IeSgSctwCBC35T6UdWP2FwycIC/Aah588EhX2TDAAAAAElFTkSuQmCC';
+
+
 
 
 // AJAX call to get train data.
@@ -155,12 +160,13 @@ var loadStations = function(){
     if (stationData.features[i].geometry !== null ){
         var coords = stationData.features[i].geometry.coordinates;
         var stationTitle = stationData.features[i].properties.title;
-        console.log(stationTitle);
+       // console.log(stationTitle);
         var latLng = new google.maps.LatLng(coords[1],coords[0]);
         var marker = new google.maps.Marker({
             content: stationTitle,
             position: latLng,
-            map: trainMap
+            map: trainMap,
+            icon: trainStationIcon
         });
     }; // If statement
     
@@ -199,8 +205,6 @@ var trackStyle = {
 trainMap.data.setStyle(trackStyle);
 
 
-  
-
 
 
 
@@ -223,8 +227,7 @@ trainMap.data.setStyle(trackStyle);
 // Function to update map
 var updateMap = function() { 
 
-
-    rawInput = this.responseText
+    rawInput = this.responseText;
     var trainInfo = JSON.parse(rawInput);
 
     
@@ -233,27 +236,86 @@ var updateMap = function() {
     });
 
 
-	// Counts number of trains
-    // var numberOfTrains = trainInfo.length;
-    
-
-    // Loop through trains, apply to Google Map  
+    // Loop through trains, apply Markers to Google Map  
     for (var i = 0; i < trainInfo.length; i++) {
 
-        // Must have a lat and a long, or nothing will be shown
-        if (trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
-            
-        // Locate our train for Marker
-            var currentTrainPosition = {
-                lat: trainInfo[i].Latitude,
-                lng: trainInfo[i].Longitude
-            };
+      // Must have a lat and a long, or nothing will be shown
+      if (trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
+        
+          
+        // Converts course integer to cardinal direction for each train into array
+        // Available in the trainCourse array
+       
+        var trainCourse = {
+            Arrow: "&#10148;"
+          };
+          
+        var _d = trainInfo[i].Course;
+        
+        if (_d >= 0 && _d <= 44){
+          trainCourse.Direction = "North";
+          trainCourse.Abbreviation = "N";
+          trainCourse.Heading = _d -90;
+          trainCourse.Wind = "Tramontane";
+        }
+        else if(_d >= 45 && _d <= 89){
+          trainCourse.Direction = "North East";
+          trainCourse.Abbreviation = "NE";
+          trainCourse.Heading = _d -90;
+          trainCourse.Wind = "Greco";
+        }
+        else if(_d >= 90 && _d <= 134){
+          trainCourse.Direction = "East";
+          trainCourse.Abbreviation = "E";
+          trainCourse.Heading = _d -90;
+          trainCourse.Wind = "Levante";
+        }
+        else if(_d >= 135 && _d <= 179){
+          trainCourse.Direction = "South East";
+          trainCourse.Abbreviation = "SE";
+          trainCourse.Heading = _d -90;
+          trainCourse.Wind = "Sirocco";
+        }
+        else if(_d >= 180 && _d <= 224){
+          trainCourse.Direction = "South";
+          trainCourse.Abbreviation = "S";
+          trainCourse.headHeadinging = _d -90;
+          trainCourse.Wind = "Ostro";
+        }
+        else if(_d >= 225 && _d <= 269){
+          trainCourse.Direction = "South West";
+          trainCourse.Abbreviation = "SW";
+          trainCourse.Heading = _d -90;
+          trainCourse.Wind = "Libeccio";
+        }
+        else if(_d >= 270 && _d <= 314){
+          trainCourse.Direction = "West";
+          trainCourse.Abbreviation = "W";
+          trainCourse.Heading = _d -90;
+          trainCourse.Wind = "Ponente";
+        }
+        else if(_d >= 315 && _d <= 359){
+          trainCourse.Direction = "North West";
+          trainCourse.Abbreviation = "NW";
+          trainCourse.Heading = _d -90;
+          trainCourse.Wind = "Maestro";
+        };
+
+      // console.log(trainCourse)
+          
+          
+                   
+      // Locate our train for Marker
+          var currentTrainPosition = {
+              lat: trainInfo[i].Latitude,
+              lng: trainInfo[i].Longitude
+          };
 
        // Convert datetime to local time
-            var convertedTrainDateTime = moment(trainInfo[i].RecordedTime).format('LT');
+          var convertedTrainDateTime = moment(trainInfo[i].RecordedTime).format('LT');
 
  
-// https://www.npmjs.com/package/fontawesome-markers
+        // https://www.npmjs.com/package/fontawesome-markers
         // Sets a new marker
             var marker = new google.maps.Marker({
       
@@ -265,79 +327,52 @@ var updateMap = function() {
                 ID: trainInfo[i].ID,
                 title: trainInfo[i].DeviceName,
                 
-                
-  /* available 
-  
-    "ID": 11119,
-    "DeviceUUID": "Piedmont",
-    "DeviceName": "74",
-    "Latitude": 35.66695,
-    "Longitude": -80.466042,
-    "Speed": 1.6,
-    "Course": 315.0,
-    "RecordedTime": "2016-09-26T12:53:00",
-    "Timestamp": "AAAAAAAAOzA=",
-    "OnTimePerformance": "1 min late",
-    "NextStation": "HPT",
-    "FromStation": "CLT",
-    "ToStation": "RGH"
-    
-    */
-                
-                
-                
-                
-                
               // Click window
                 infoWindowHTML: 
-
                     '<div class="infoWindowContent" style="width:280px">' +
                       '<div class="block-group">' +
-                        '<div class="b1 block"><strong class="infoWindowNumber">' + trainInfo[i].DeviceName + ' | <span class="infoWindowName">' + trainInfo[i].DeviceUUID + '</span></strong></div>' +
-                        '<div class="b2 block infoWindowSpeed"><strong>' + trainInfo[i].Speed + '<small>MPH</small></strong></div>' +
-                        '<div class="b2 block infoWindowDirection">' + trainInfo[i].Course + '</div>' +
+                        '<div class="b6 block"><strong class="infoWindowNumber">' + trainInfo[i].DeviceName + ' | <span class="infoWindowName">' + trainInfo[i].DeviceUUID + '</span></strong></div>' +
+                        '<div class="b6 block infoWindowSpeed"> ' + trainInfo[i].Speed + '<small>MPH</small> - <span>Heading ' + trainCourse.Abbreviation + '</span>' +
+                        '<strong style="display:inline-block;transform: rotate(' + trainCourse.Heading + 'deg);"> ' + trainCourse.Arrow + '</strong>' +
                       '</div><hr />' +
                       
                       '<div class="block-group">' +    
                         '<div class="b4 block">Traveling from: <strong class="infoWindowFromStation">' + trainInfo[i].FromStation + ' &#10148; </strong> ' +
                         '<strong class="infoWindowToStation">' + trainInfo[i].ToStation + '</strong></div>' +
-                        '<div class="b5 block">Next station: <strong class="infoWindowNextStation">' + trainInfo[i].NextStation + '</strong></div>' +
+                        '<div class="b5 block">Next station: <strong class="infoWindowNextStation">' + trainInfo[i].NextStation + '</strong></div><br/><br/>' +
                       '</div>' +
                       
-                      '<div class="block-group>' +
-                      '<br/><div class="block-group"><br/><strong class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</strong> | Status as of: ' + convertedTrainDateTime + '</div>' +
-                    '</div></div>'
+                      '<div class="block-group">' +
+                        '<p><strong class="infoWindowStatus">' + trainInfo[i].OnTimePerformance + '</strong> as of: ' + convertedTrainDateTime + '</p>' +
+                      '</div>'+
+                    '</div>',
                     
-         /*           
+                    
               // Smaller hover window     
                 hoverWindowHTML:
-                '<p>'+ trainInfo[i].DeviceName+ ' | '+ trainInfo[i].DeviceUUID + '</p>'
-          */
+                '<div>'+ trainInfo[i].DeviceName+ ' | '+ trainInfo[i].DeviceUUID + '</div>'
+          
 
             });
         
-            marker['infowindow'] = new google.maps.InfoWindow({
-                content: this.infoWindow
-            });
-            
-
+        // Event Listener for clicking a station icon
             marker.addListener('click', function() {
                 infowindow.setContent(this.infoWindowHTML);
                 infowindow.open(map, this);
             });
         /*
-        // Smaller hover window
+        // Event listener for hover state
             marker.addListener('mouseover', function() {
                 infowindow.setContent(this.hoverWindowHTML);
                 infowindow.open(trainMap, this);
             });
             
-        // Smaller hover window
+        // Event listener to close over 
             marker.addListener('mouseout', function() {
                 infowindow.close(trainMap, this.hoverWindowHTML);
             });
-*/
 
+*/
 
             markers.push(marker);
         }
