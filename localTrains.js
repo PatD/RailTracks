@@ -22,7 +22,7 @@
     "Course": 135.0,
     "RecordedTime": "2016-09-25T20:30:00",
     "Timestamp": "AAAAAAAAORc=",
-    "OnTimePerformance": "17 min late",
+    "OnTimePerformance": "On Time",
     "NextStation": "CLT",
     "FromStation": "NYP",
     "ToStation": "CLT"
@@ -78,7 +78,7 @@
     "Course": 315.0,
     "RecordedTime": "2016-09-26T12:53:00",
     "Timestamp": "AAAAAAAAOzA=",
-    "OnTimePerformance": "1 min late",
+    "OnTimePerformance": "On Time",
     "NextStation": "HPT",
     "FromStation": "CLT",
     "ToStation": "RGH"
