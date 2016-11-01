@@ -1,22 +1,16 @@
 /* Punchlist
 
+    1. If/else on Heading if speed <1
+    2. Handling sleeping cars (<DeviceUUID>Corridor</DeviceUUID>)
+    3. Service check
 
-    Train hover state
-    
-
-    Handling sleeping cars (<DeviceUUID>Corridor</DeviceUUID>)
-   
     Mobile size
     
 
 
-// Associated Data
+// Reference links
 
 // CSS Grid: http://arnaudleray.github.io/pocketgrid/docs/
-
-// var trackLayerGeo = 'Rail_AmtrakLines.json'
-// var trackLayer = 'https://www.ncdot.gov/_xml/Rail_AmtrakLines.xml';
-// var stationLayer = 'https://www.ncdot.gov/_xml/rail_station_mobile.xml';
 // Tracks https://en.wikipedia.org/wiki/Piedmont_(train)
 // Export KmlLayer http://sharemap.org/public/Amtrak_Piedmont#!kmlexport
 // Geojson editor http://geojson.io/#map=6/33.541/-78.223
@@ -24,6 +18,22 @@
 
     */
 
+
+// Polyfill for .includes() in IE:
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    'use strict';
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+    
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
+};
 
 
 
@@ -34,8 +44,8 @@ var markers = [];
 var trainMap;
 
 var map;
-// var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
-var trainFeed = 'localTrains.js';
+var trainFeed = 'https://engblq.dot.nc.net/EAD/RailTrak/api';
+// var trainFeed = 'localTrains.js';
 var raleighLocation = { lat: 35.5, lng: -79 };
 var mapDiv = document.getElementById('map');
 
@@ -56,7 +66,7 @@ var getTrainData = function() {
 
 
 // Clears away the train markers, then brings them back
-/*
+
 setInterval(function() {
       
    for(i=0; i<markers.length; i++){
@@ -67,9 +77,9 @@ setInterval(function() {
     
     getTrainData(); 
       
-}, 5000);
+}, 30000);
 
-*/
+
 
 
 
@@ -197,8 +207,8 @@ var updateMap = function() {
     // Loop through trains, apply Markers to Google Map  
     for (var i = 0; i < trainInfo.length; i++) {
       
-      // Must have a lat and a long, or nothing will be shown
-      if (trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
+      // Must have a lat and a long AND not be 'Corridor", or marker won't be shown
+      if (trainInfo[i].DeviceUUID !== "Corridor" && trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
       
         // Transform each train into our Train Object
         var trainObject = {
@@ -252,7 +262,7 @@ var updateMap = function() {
             else if(_d >= 180 && _d <= 224){
               trainObject.Direction = "South";
               trainObject.Abbreviation = "S";
-              trainObject.headHeadinging = _d -90;
+              trainObject.Heading = _d -90;
             }
             else if(_d >= 225 && _d <= 269){
               trainObject.Direction = "South West";
@@ -269,7 +279,8 @@ var updateMap = function() {
               trainObject.Abbreviation = "NW";
               trainObject.Heading = _d -90;
             };
-        })();     
+        })();  
+   
      
       // Status for on-time!
        (function () {
