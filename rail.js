@@ -207,7 +207,7 @@ var updateMap = function() {
     // Loop through trains, apply Markers to Google Map  
     for (var i = 0; i < trainInfo.length; i++) {
       
-      // Must have a lat and a long AND not be 'Corridor", or marker won't be shown
+      // Must have a lat and a long, or nothing will be shown
       if (trainInfo[i].DeviceUUID !== "Corridor" && trainInfo[i].Latitude !== undefined && trainInfo[i].Longitude !== undefined) {
       
         // Transform each train into our Train Object
